@@ -4,4 +4,5 @@
     <string name="seleccionarLugar">Seleccionar lugar</string>
     <string name="lugaresCerca">Lugares cerca</string>
     <string name="buscarLugares">Buscar lugares</string>
+    <string name="obtenerInfoLugar">Obtener Información de un lugar</string>
 </resources>

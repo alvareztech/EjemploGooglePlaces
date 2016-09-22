@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.AutocompletePrediction;
 import com.google.android.gms.location.places.AutocompletePredictionBuffer;
 import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.PlaceLikelihood;
 import com.google.android.gms.location.places.PlaceLikelihoodBuffer;
 import com.google.android.gms.location.places.Places;
@@ -85,6 +87,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 String direccion = lugar.getAddress().toString();
                 String id = lugar.getId();
 
+                Log.i("PLACES", id);
+
                 infoTextView.setText(nombre + "\n" + direccion + "\n" + id);
             }
         }
@@ -143,5 +147,31 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 autocompletePredictions.release();
             }
         });
+    }
+
+    public void obtenerInfo(View view) {
+
+        PendingResult<PlaceBuffer> pendingResult = Places.GeoDataApi.getPlaceById(googleApiClient, "ChIJVTa0SmAgX5ERFTpcubHRLJA");
+        pendingResult.setResultCallback(new ResultCallback<PlaceBuffer>() {
+            @Override
+            public void onResult(@NonNull PlaceBuffer places) {
+                if (places.getStatus().isSuccess() && places.getCount() > 0) {
+                    Place lugar = places.get(0);
+
+                    infoTextView.setText("");
+                    infoTextView.append(lugar.getName() + "\n");
+                    infoTextView.append(lugar.getAddress() + "\n");
+                    infoTextView.append(lugar.getPhoneNumber() + "\n");
+                    infoTextView.append(lugar.getRating() + "\n");
+                    infoTextView.append(lugar.getWebsiteUri() + "\n");
+                    infoTextView.append(lugar.getLatLng().latitude + "\n");
+                    infoTextView.append(lugar.getLatLng().longitude + "\n");
+                    infoTextView.append(lugar.getPlaceTypes().get(0) + "\n");
+
+                }
+                places.release();
+            }
+        });
+
     }
 }
