@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">EjemploGooglePlaces</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="seleccionarLugar">Seleccionar lugar</string>
+    <string name="lugaresCerca">Lugares cerca</string>
+    <string name="buscarLugares">Buscar lugares</string>
+</resources>
